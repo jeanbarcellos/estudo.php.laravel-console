@@ -14,3 +14,4 @@ Referências:
 
 -   [Documentação](https://laravel.com/docs/8.x/artisan)
 -   [Laravel: Criando Comandos](https://medium.com/@flyingluscas/laravel-criando-comandos-904454cae849)
+-   [Laravel Artisan: como criar arquivos com comandos personalizados](https://imasters.com.br/back-end/laravel-artisan-como-criar-arquivos-com-comandos-personalizados)
