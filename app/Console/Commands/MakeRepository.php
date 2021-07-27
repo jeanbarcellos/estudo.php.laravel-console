@@ -2,41 +2,75 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Illuminate\Console\GeneratorCommand;
+use Symfony\Component\Console\Input\InputArgument;
 
-class MakeRepository extends Command
+class MakeRepository extends GeneratorCommand
 {
     /**
-     * The name and signature of the console command.
+     * O nome e a assinatura do comando do console.
      *
      * @var string
      */
-    protected $signature = 'make:repository';
+    protected $name = 'make:repository';
 
     /**
-     * The console command description.
+     * A descrição do comando do console.
      *
      * @var string
      */
     protected $description = 'Create a new repository class';
 
     /**
-     * Create a new command instance.
+     * O tipo de classe sendo gerada.
      *
-     * @return void
+     * @var string
      */
-    public function __construct()
+    protected $type = 'Repository';
+
+    /**
+     * Substitui o nome da classe para o stub fornecido.
+     *
+     * @param  string  $stub
+     * @param  string  $
+     *
+     * @return string
+     */
+    protected function replaceClass($stub, $name)
     {
-        parent::__construct();
+        $stub = parent::replaceClass($stub, $name);
+
+        return str_replace('GenericRepository', $this->argument('name'), $stub);
+    }
+    /**
+     * Obtpem o arquivo stub para o gerador.
+     *
+     * @return string
+     */
+    protected function getStub()
+    {
+        return app_path() . '/Console/Commands/Stubs/make-repository.stub';
+    }
+    /**
+     * Obtém o namespace padrão para a classe.
+     *
+     * @param  string  $rootNamespace
+     * @return string
+     */
+    protected function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace . '\Repositories';
     }
 
     /**
-     * Execute the console command.
+     * Obtém os argumentos do comando do console.
      *
-     * @return int
+     * @return array
      */
-    public function handle()
+    protected function getArguments()
     {
-        return 0;
+        return [
+            ['name', InputArgument::REQUIRED, 'The name of the repository.'],
+        ];
     }
 }
