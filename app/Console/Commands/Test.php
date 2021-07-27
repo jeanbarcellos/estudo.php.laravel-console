@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Company;
 use Illuminate\Console\Command;
 
 class Test extends Command
@@ -37,12 +38,6 @@ class Test extends Command
      */
     public function handle()
     {
-
-        dump($_SERVER['argv']);
-        dump($this->input);
-
-        echo "oi";
-
-        return 0;
+        echo __METHOD__;
     }
 }
