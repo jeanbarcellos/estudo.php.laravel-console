@@ -64,5 +64,14 @@ class Test1 extends Command
 
         $this->alert('Escrever string em uma caixa de alerta');
         $this->newLine();
+
+        $this->table(
+            ['Name', 'Email'],
+            [
+                ['name' => 'Linha 1', 'email' => 'test@teste.com'],
+                ['name' => 'Linha 2', 'email' => 'test@teste.com'],
+                ['name' => 'Linha 3', 'email' => 'test@teste.com'],
+            ]
+        );
     }
 }
