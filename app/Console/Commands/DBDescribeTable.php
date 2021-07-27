@@ -37,6 +37,32 @@ class DBDescribeTable extends Command
      */
     public function handle()
     {
-        return 0;
+        $table = $this->argument('table');
+
+        if ($this->tableDontExist($table)) {
+            return $this->warn('Sorry, table not found.');
+        }
+
+        return $this->showTableDetails($table);
+    }
+
+    protected function tableDontExist($table)
+    {
+        return !\Illuminate\Support\Facades\Schema::hasTable($table);
+    }
+
+    protected function showTableDetails($table)
+    {
+        $columns = \Illuminate\Support\Facades\DB::select("DESC {$table}");
+
+        $headers = [
+            'Field', 'Type', 'Null', 'Key', 'Default', 'Extra',
+        ];
+
+        $rows = collect($columns)->map(function ($column) {
+            return get_object_vars($column);
+        });
+
+        return $this->table($headers, $rows);
     }
 }
