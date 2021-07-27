@@ -13,9 +13,4 @@ Instrutor:
 Referências:
 
 -   [Documentação](https://laravel.com/docs/8.x/artisan)
-
-
-##
-
-/artisan
-Kernel::__construct()
+-   [Laravel: Criando Comandos](https://medium.com/@flyingluscas/laravel-criando-comandos-904454cae849)
