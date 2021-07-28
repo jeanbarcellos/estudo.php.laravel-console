@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
 class MakeRepository extends GeneratorCommand
@@ -28,20 +29,6 @@ class MakeRepository extends GeneratorCommand
      */
     protected $type = 'Repository';
 
-    /**
-     * Substitui o nome da classe para o stub fornecido.
-     *
-     * @param  string  $stub
-     * @param  string  $
-     *
-     * @return string
-     */
-    protected function replaceClass($stub, $name)
-    {
-        $stub = parent::replaceClass($stub, $name);
-
-        return str_replace('GenericRepository', $this->argument('name'), $stub);
-    }
     /**
      * Obtpem o arquivo stub para o gerador.
      *
@@ -73,4 +60,41 @@ class MakeRepository extends GeneratorCommand
             ['name', InputArgument::REQUIRED, 'The name of the repository.'],
         ];
     }
+
+    /**
+     * Construir a classe com o nome dado.
+     *
+     * @param  string  $name
+     * @return string
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    protected function buildClass($name)
+    {
+        $controllerNamespace = $this->getNamespace($name);
+
+        $replace = [
+            '{{ClassName}}' => $this->argument('name') . 'Repository',
+            '{{Model}}' => $this->argument('name'),
+            '{{ModelVariable}}' => strtolower($this->argument('name')),
+        ];
+
+        return str_replace(
+            array_keys($replace), array_values($replace), parent::buildClass($name)
+        );
+    }
+
+    /**
+     * Obter o caminho da classe de destino.
+     *
+     * @param  string  $name
+     * @return string
+     */
+    protected function getPath($name)
+    {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+
+        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . 'Repository.php';
+    }
+
 }

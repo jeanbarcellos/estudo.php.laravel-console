@@ -2,15 +2,47 @@
 
 namespace App\Repositories;
 
-class GenericRepository
-{
-    public function insertOrChangeData()
-    {
+use App\Models\{{Model}};
 
+class {{ClassName}}
+{
+    public function insert({{Model}} ${{ModelVariable}}): void
+    {
+        // TO-DO ...
     }
 
-    public function removeData()
+    public function update({{Model}} ${{ModelVariable}}): void
     {
+        // TO-DO ...
+    }
 
+    public function save({{Model}} ${{ModelVariable}}): void
+    {
+        // TO-DO ...
+    }
+
+    public function delete({{Model}} ${{ModelVariable}}): void
+    {
+        // TO-DO ...
+    }
+
+    public function deleteById(int $id): void
+    {
+        // TO-DO ...
+    }
+
+    public function find(int $id): ?{{Model}}
+    {
+        // TO-DO ...
+    }
+
+    public function findOneBy(array $where = [], array $orderBy = []): ?{{Model}}
+    {
+        // TO-DO ...
+    }
+
+    public function findBy(array $where = [], array $orderBy = [], ?int $limit = null, ?int $offset = null): array
+    {
+        // TO-DO ...
     }
 }
