@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Company;
 use Illuminate\Console\Command;
 
 /*
@@ -16,7 +15,7 @@ Opções
 {--port=}         : Defina uma valor para opção
 {----secury=ssl}  : Defina uma valor para opção, caso não defina, segue o padrão
 {--u|username=}   : Definição de atalho de opções
-*/
+ */
 class Test3 extends Command
 {
     /**
@@ -34,6 +33,8 @@ class Test3 extends Command
                             {--secury=ssl : Protocolo de segurança}
                             {--u|username= : Usuário do serviço de email}
                             ';
+
+    protected $help = 'Demonstration of custom commands.';
 
     /**
      * The console command description.
@@ -62,21 +63,29 @@ class Test3 extends Command
         $this->line('Executando o método ' . __METHOD__);
         $this->newLine();
 
-        $arguments = $this->arguments();
-        dump($arguments);
+        $this->line('Arguments:');
+        $this->table(
+            ['Argument', 'Value'],
+            [
+                ['nome', $this->argument('nome')],
+                ['email', $this->argument('email')],
+                ['sexo', $this->argument('sexo')],
+                ['idade', $this->argument('idade')],
+            ]
+        );
 
-        $nome = $this->argument('nome');
-        $email = $this->argument('email');
-        $sexo = $this->argument('sexo');
-        $idade = $this->argument('idade');
+        $this->newLine();
 
-        $this->line('Nome: ' . $nome);
-        $this->line('email: ' . $email);
-        $this->line('Sexo: ' . $sexo);
-        $this->line('Idade: ' . $idade);
-
-        $options = $this->options();
-        dump($options);
+        $this->line('Options:');
+        $this->table(
+            ['Option', 'Value'],
+            [
+                ['sendmail', $this->option('sendmail') ? 'true' : 'false'],
+                ['port', $this->option('port')],
+                ['secury', $this->option('secury')],
+                ['username', $this->option('username')],
+            ]
+        );
 
     }
 }
@@ -99,4 +108,4 @@ email: jeanbarcellos@hotmail.com
 Sexo:
 Idade: 18
 
-*/
+ */

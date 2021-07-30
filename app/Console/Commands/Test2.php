@@ -47,14 +47,12 @@ class Test2 extends Command
 
         $nome = $this->ask('Qual o seu nome?');
         $idade = $this->ask('Qual a sua idade?');
+        $senha = $this->secret('Informe uma senha?');
 
         $this->line('Seus dados são os seguintes:');
         $this->line('Nome: ' . $nome);
         $this->line('Idade: ' . $idade);
-        $this->newLine();
-
-        $password = $this->secret('Informe uma senha?');
-        $this->line('Senha: ' . $idade);
+        $this->line('Senha: ' . $senha);
         $this->newLine();
 
         if ($this->confirm('Você deseja continuar? [y|n]')) {
